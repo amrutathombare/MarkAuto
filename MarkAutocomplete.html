@@ -1,0 +1,118 @@
+<html>
+<head> 
+<title> Assignment 1 </title>
+</head>
+<div style="border: 1px solid black; width:25%"> 
+<p> Autocomplete Example: </p>
+	<input type="radio" name="radio1" value="Books" id="Books1" checked> Book list
+	<input type="radio" name="radio1" value="Scientists" id="Sci">100 Famous Scientists
+	<br>
+	<input type="text" id="edit1" width="100" height="30" name="edit1" onkeyup=displayList(this)> 
+	<button style="background-color: aqua"> Search </button>
+	<p id="demo" hidden></p>
+</div> 
+<div id="dropdown" style="display:none"> 
+<SELECT id=listbox1 size=3 name="listbox1" onclick=showVal(this)></SELECT> 
+</div> 
+<body> 
+<p> Mark Example:
+<br/><br/>
+The stock quadrupled just a few months after its IPO, as investors have high expections for the company to live up to. However, investors are especially ansty going into this report, seeing how the stock has lost more than half its value 
+in the last few months alone. 
+<p> Revenues passed by expectations by a long shot. GoPro posted revenues of
+<span style= "background-color: yellow"> $633.9 million</span>, compared to our consensus estimate of <span style= "background-color: yellow">$565 million.</span>
+<script> 
+/*
+function myFunction() {
+    var x = document.getElementById("Books1").checked;
+    document.getElementById("demo").innerHTML = x;
+}*/
+function displayList() 
+{ 
+var x = document.getElementById("Books1").checked;
+    document.getElementById("demo").innerHTML = x;
+document.getElementById("dropdown").style.display = "none"; // Div tag containing the dropdown list is hidden 
+document.getElementById('listbox1').options.length = 0; // If already shown list box, the options are made to 0, which makes it hidden 
+if(!((/^\s*$/).test(document.getElementById("edit1").value)))	// Checks if white space is entered in edit box 
+{ 
+document.getElementById("dropdown").style.display="block";	// Makes drop down visible 
+var textBoxString = document.getElementById("edit1").value; 
+var scientists = new Array("Isaac Newton", "Albert Einstein","Neils Bohr", "Charles Darwin","Louis Pasteur", "Sigmund Freud","Galileo Galilei", "Antoine Laurent Lavoisier",
+		"Johannes Kepler","Nicolaus Copernicus", "Michael Faraday", "James Clerk Maxwell", "Claude Bernard","Franz Boas",
+		"Werner Heisenberg","Linus Pauling","Rudolf Virchow","Erwin Schrodinger","Ernest Rutherford","Paul Dirac","Andreas Vesalius",
+		"Tycho Brahe","Comte de Buffon","Ludwig Boltzmann","Max Planck","Marie Curie","William Herschel","Charles Lyell",
+		"Pierre Simon de Laplace","Edwin Hubble","Joseph J. Thomson","Max Born","Francis Crick","Enrico Fermi","Leonard Euler","Justus Liebig","Arthur Eddington","William Harvey","Marcello Malpighi","Christiaan Huygens","Carl Gauss","Albrecht von Haller","August Kekule",
+"Robert Koch","Murray Gell-Mann","Emil Fischer","Dmitri Mendeleev","Sheldon Glashow","James Watson","John Bardeen","John von Neumann","Richard Feynman",
+"Alfred Wegener","Stephen Hawking","Anton van Leeuwenhoek","Max von Laue","Gustav Kirchhoff","Hans Bethe","Euclid","Gregor Mendel","Heike Kamerlingh Onnes",
+"Thomas Hunt Morgan","Hermann von Helmholtz","Paul Ehrlich","Ernst Mayr","Charles Sherrington","Theodosius Dobzhansky","Max Delbruck","Jean Baptiste Lamarck",
+"William Bayliss","Noam Chomsky","Frederick Sanger","Lucretius","John Dalton","Louis Victor de Broglie","Carl Linnaeus","Jean Piaget","George Gaylord Simpson",
+"Claude Levi-Strauss","Lynn Margulis","Karl Landsteiner	","Konrad Lorenz","Edward O. Wilson","Frederick Gowland Hopkins","Gertrude Belle Elion","Hans Selye",
+"J. Robert Oppenheimer","Edward Teller	","Willard Libby","Ernst Haeckel","Jonas Salk","Emil Kraepelin","Trofim Lysenko	","Francis Galton","Alfred Binet",
+"Alfred Kinsey	","Alexander Fleming","B. F. Skinner","Wilhelm Wundt","Archimedes");	// Source list values to be populated in drop down 
+
+var books = new Array("Analyzing Multivariate Data","Applied Data Mining: Statistical Methods for Business and Industry",
+      "Applied Multivariate   Statistical Analysis","Business Forecasting, Fifth Edition with   Accompanying Excel-Based ForecastX Software ",
+      "Business Intelligence: Data Mining and   Optimization for Decision Making",
+      "Business Statistics for Contemporary  Decision Making, 5th edition",
+      "Classical and Adaptive Clinical Trial   Designs",
+      "Classification and Regression Trees","Cluster Analysis, 4th edition",
+      "Data and Text Mining","Data, Models, and Decisions: The   Fundamentals of Management Science",
+      "Data Mining: A tutorial-Based Primer","Data Mining: Concepts, Models, Methods,  and Algorithms",
+      "Data Mining: Practical Machine Learning   Tools and Techniques, 2nd edition",
+      "Data Mining Cookbooks: Modeling Data for  Marketing, Risk, and Customer Relationship Management",
+      "Data Mining Explained","Data Mining with Case Studies",
+      "Discovering Knowledge in Data","Elementary Statistics, 8th edition",
+      "Exploratory Data Mining and Data   Cleaning","Handbooks of Parametric and Nonparametric   Statistical Procedures, Third Edition",
+      "Introduction to Bayesian Statistics, 2nd   edition",
+      "Introduction to Business Data Mining","Introduction to Data Mining",
+      "Introduction to the Practice   of Statistics",
+      "Introductory Statistics for   Business and Economics, 4th edition",
+      "Marketing Engineering; Computer-Assisted   Marketing Analysis and Planning, Second Edition",
+      "Mastering Data Mining","Matrix Methods in Data Mining and   Pattern Recognition",
+      "Multiple Comparisons: Theory and Methods","Multiple Testing Problems in   Pharmaceutical Statistics",
+      "Multivariate Statistical Analysis","Negative Binomial Regression",
+      "Neural Networks in Finance and Investing","Oxford Handbooks of Medical Statistics",
+      "Principles of Data Mining","R Graphics","Speech and Language Processing; ",
+      "Stats: data and models, 2nd ed.","Statistics, 2nd edition",
+      "Statistical Analysis & Data Mining","Statistical Ideas and Methods",
+      "Statistical Methods for Psychology, 5th   edition","Statistical Pattern Recognition, 2nd   edition",
+      "Statistics in America","Statistics Using R","Strengthening Forensic Science in the   United States: A Path Forward",
+      "Survey of Text Mining: Clustering,   Classification, and Retrieval",
+      "Teaching Statistics","The Active Practice of   Statistics",
+      "The Handbooks of Data Mining ","The Basic Practice of   Statistics",
+      "The little SAS books");
+ 
+ var x = document.getElementById("demo").innerHTML;
+ 
+if(x=="true")
+var temp = books;
+else
+var temp = scientists; 
+ 
+for(var i = 0; i< temp.length; i += 1) 
+{ 
+var j = j + 1; 
+if((temp[i].toLowerCase()).indexOf(textBoxString.toLowerCase()) == 0)	// Checks if search text is like in source string 
+{ 
+addItem(temp[i],temp[i]);	// Function to populate drop down 
+} 
+} 
+} 
+} 
+
+function addItem(Text,Value) 
+{ 
+// Create an Option object 
+var opt = document.createElement("option"); // Add an Option object to Drop Down/List Box 
+document.getElementById("listbox1").options.add(opt); // Assign text and value to Option object 
+opt.text = Text; 
+opt.value = Value; 
+} 
+
+function showVal(listval) 
+{ 
+document.getElementById("edit1").value = listval.value; // Value shown in list box to shown in edit box 
+} 
+</script> 
+</body>
+</html>
